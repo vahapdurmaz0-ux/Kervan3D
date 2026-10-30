@@ -17,4 +17,6 @@ Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudfl
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
 
-Güncel oyun: **v0.2.1**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak iki kişilik maç güncellemesini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+Güncel oyun: **v0.2.2**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+
+Son güncelleme: taşıma/gece geçişi ve eski sohbet/oda durumu temizliği; fiziksel Hırsız saldırısı; özel üst kamera gece tekrarı; ayarlarda Lobiye dön; ev kapasitesiyle sınırlı roller ve her renk grubunda Rastgele yerleri.
