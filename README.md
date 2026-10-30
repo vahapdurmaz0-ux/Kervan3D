@@ -7,7 +7,7 @@ ZIP’in tamamını bir klasöre çıkarın ve **Kervan3D.exe** dosyasını aç�
 1. Bir arkadaşınız **ODAYI OLUŞTUR** düğmesine basar.
 2. Gelen 6 karakterli kodu paylaşır.
 3. Diğer oyuncular kodu yazarak **ODAYA KATIL** düğmesine basar.
-4. Herkes **HAZIRIM** dediğinde oda sahibi maçı başlatır. Normal maç için en az 4 oyuncu, en fazla 20 oyuncu gerekir.
+4. Herkes **HAZIRIM** dediğinde oda sahibi maçı başlatır. Normal maç için en az 2 oyuncu, en fazla 20 oyuncu gerekir.
 
 Herkes kendi odasını açabilir; geliştiricinin veya onun bilgisayarının açık olması gerekmez. Odayı kuran oyuncunun uygulaması ve interneti açık kalmalıdır. IP/port veya modem ayarı gerekmez.
 
@@ -16,3 +16,5 @@ Yeni yayınlanan oyun sürümleri ve eklenen ayarlar uygulama açılışında ot
 Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudflare tünellerini kullanır; kesintisiz hizmet garantisi yoktur. İki gerçek mikrofonla ses testi ve 20 kişilik yük testi henüz tamamlanmadı.
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
+
+Güncel oyun: **v0.2.1**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak iki kişilik maç güncellemesini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
