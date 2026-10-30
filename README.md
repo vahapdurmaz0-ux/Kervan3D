@@ -1,6 +1,6 @@
 # Kervan 3D
 
-[**Windows sürümünü indir**](https://github.com/vahapdurmaz0-ux/Kervan3D/releases/latest/download/Kervan3D-Windows-v0.2.0.zip)
+[**Windows sürümünü indir**](https://github.com/vahapdurmaz0-ux/Kervan3D/releases/download/v0.2.0/Kervan3D-Windows-v0.2.0.zip)
 
 ZIP’in tamamını bir klasöre çıkarın ve **Kervan3D.exe** dosyasını açın.
 
