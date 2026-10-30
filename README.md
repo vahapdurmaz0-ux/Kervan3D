@@ -17,6 +17,8 @@ Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudfl
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
 
-Güncel oyun: **v0.2.2**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+Güncel oyun: **v0.2.3**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
 
-Son güncelleme: taşıma/gece geçişi ve eski sohbet/oda durumu temizliği; fiziksel Hırsız saldırısı; özel üst kamera gece tekrarı; ayarlarda Lobiye dön; ev kapasitesiyle sınırlı roller ve her renk grubunda Rastgele yerleri.
+Son güncelleme: 45 saniye görev seçimi + sabit 10 saniye saldırı; gece fiziksel ev önü E/Q görevleri ve gizli dış oyuncular; gerçek köyde normal hızda son 10 saniyelik gözcü hareket kaydı; saldırıda bölünmüş canlı ekran ve engelleyen siyah polis; ölümle iptal edilen rol işlemleri; özel renkli ayak izleri ve BOMBA ev etiketleri; evlerin önünde sahiplerinin isimleri; oda sahibinin X ile oyuncu çıkarması; sabit düşük görüntü ve performans iyileştirmeleri. Gece TAB uzaktan yetenek ekranı açmaz; F/G yalnız gündüz tartışmasında kullanılabilir.
+
+Güncellemeden sonra herkes v0.2.3 yazısını kontrol edip **yeni oda** kurmalıdır. Onaylanan karakter modeli değiştirilmedi.
