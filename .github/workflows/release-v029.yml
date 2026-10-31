@@ -1,4 +1,4 @@
-name: Publish Kervan 3D v0.2.10
+name: Publish Kervan 3D v0.2.11
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://assumes-applies-wives-patients.trycloudflare.com
+          SOURCE: https://vids-pos-spine-chocolate.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '5dd015501d5a1daeadee460d4628d1bbcc80c1b662c9f063b7848058a4df17d3  game.pck' | sha256sum --check --strict
-          echo '57dadf209e4065fe4230ae545274863b001023cf1aa6e94690069c66920f5052  latest.json' | sha256sum --check --strict
+          echo '1737d6ed9cffcc04769f95be2a8094f80dcf52242cc942b87598939ada5c666d  game.pck' | sha256sum --check --strict
+          echo 'f84ce5e8bf3a4ef96076338496a687d6cc21894e744429a3fbb7920d9f673fad  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,11 +29,14 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Kuyunun içindeki ipe asılı kova geri getirildi.
-          - Duvardaki dış kova ve rafı kaldırıldı.
+          - Sürekli kuş korosu ve ortam uğultusu kaldırıldı.
+          - Kuşlar dışarıda gündüz 14–26 saniye arayla kısa cik cik yapar.
+          - Yürüyüşe kısa, yumuşak pıt pıt adım sesi eklendi; diğer oyuncular kendi adım sesinizi kesemez.
+          - Adımları ve kuşları bastırmayan kısık, sakin enstrümantal müzik eklendi.
+          - Kuyuda içerideki asılı kova durur; duvardaki kova ve raf yoktur.
           
-          Oyun içi görüntü ve tek kovanın içeride bulunduğu kontrol edildi.
-          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.10 güncellemesini alabilirsiniz.
+          Oyun içinde gerçek yürüyüş, ses düzeyleri, aralıklı kuş ve iç mekan/sessize alma kontrolleri geçti.
+          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.11 güncellemesini alabilirsiniz.
           NOTES
-          gh release create v0.2.10 game.pck latest.json --draft --title 'Kervan 3D v0.2.10' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.2.10 --draft=false --latest
+          gh release create v0.2.11 game.pck latest.json --draft --title 'Kervan 3D v0.2.11' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.2.11 --draft=false --latest
