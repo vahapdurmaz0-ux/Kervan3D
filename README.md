@@ -4,10 +4,10 @@
 
 ZIP’in tamamını bir klasöre çıkarın ve **Kervan3D.exe** dosyasını açın.
 
-1. Bir arkadaşınız **ODAYI OLUŞTUR** düğmesine basar.
+1. Bir arkadaşınız **Oda Kur** düğmesine basar.
 2. Gelen 6 karakterli kodu paylaşır.
-3. Diğer oyuncular kodu yazarak **ODAYA KATIL** düğmesine basar.
-4. Herkes **HAZIRIM** dediğinde oda sahibi maçı başlatır. Normal maç için en az 2 oyuncu, en fazla 20 oyuncu gerekir.
+3. Diğer oyuncular kodu yazarak **Katıl** düğmesine basar.
+4. Herkes **Hazır** dediğinde oda sahibi maçı başlatır. Normal maç için en az 2 oyuncu, en fazla 20 oyuncu gerekir.
 
 Herkes kendi odasını açabilir; geliştiricinin veya onun bilgisayarının açık olması gerekmez. Odayı kuran oyuncunun uygulaması ve interneti açık kalmalıdır. IP/port veya modem ayarı gerekmez.
 
@@ -17,8 +17,8 @@ Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudfl
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
 
-Güncel oyun: **v0.2.4**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+Güncel oyun: **v0.2.5**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
 
-Son güncelleme: yakın takipli gözcü kamerası; büyütülmüş kapı tabelalarında doğru oyuncu isimleri; 20 kişilik oylamada taşma düzeltmesi; aynı gri iskelet görünümünde duvarlardan geçen ruhlar; banklara oturma; Doktorun maçta bir kez kendini koruması; sade ikon/ad rol kartı, açılır sohbet ve roller/ifadeler ikonları; küçük bildirimler; Oyna/Ayarlar/Oynanış/Çıkış giriş menüsü. Can barı ve sürekli tuş öğreticileri kaldırıldı. Yaşayan karakter modeli değiştirilmedi.
+Son güncelleme: Yeşil/Kırmızı/Mavi sekmeli, ikon ve adet düğmeli sade rol seçimi; her renkte ilk sırada Rastgele; ev sayısıyla sınırlı rol toplamı; seçilen kartlarda renk vurgusu. Oda sahibi ve katılanlar lobide adını düzenleyip Kaydet kullanabilir; isimler oyuncu listesi, karakter ve ev tabelasında birlikte değişir. Aynı isimlere numara eklenir. Menü adları kısaltılıp ortaklaştırıldı. Yaşayan karakter modeli değiştirilmedi.
 
-Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.4** yazısını doğrulayıp yeni oda kurmalıdır.
+Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.5** yazısını doğrulayıp yeni oda kurmalıdır.
