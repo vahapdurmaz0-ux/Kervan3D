@@ -17,10 +17,10 @@ Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudfl
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
 
-Güncel oyun: **v0.2.8**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+Güncel oyun: **v0.2.9**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
 
-Son güncelleme: gerçek kedi, doğa ve yumuşak adım kayıtları; gülme/Twerk yön düzeltmeleri; yerinde sırtüstü yatıp sağa sola sallanan kediler; daha büyük köşe ikonları. Üç kedi köyde gezinir, yakında E ile sevilir, 5 metre içinde hafifçe miyavlar. Kuşlar bazı ağaçlarda kanat açar. İfadeler arasında Eller İleri/Yukarı, Ninja Koşusu ve Twerk vardır; dans ve gülme sırasında karakter sabit durur. Konuşma tuşu Ses-Voice ekranından kişiye özel değiştirilebilir. İkonların yuvarlak çerçeveleri ince siyahtır. Yaşayan karakter modeli değiştirilmedi.
+Son güncelleme: Twerk sırasında kamera fareyle döndürülebilir; karakter yerinde kalır. Ninja duruşunun kolları biraz açıldı. Kuyunun içindeki asılı kova kaldırıldı; yandaki kova durur. Kedi sevilince ve yakına gelince mırlama eklenmemiş tek miyav kaydı çalar. Yaşayan karakter modeli değiştirilmedi.
 
-Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.8** yazısını doğrulayıp yeni oda kurmalıdır.
+Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.9** yazısını doğrulayıp yeni oda kurmalıdır.
 
-Ses kayıtları (CC0, düzenlenmiş): [Kerzoven — Cat Purr & Meow](https://opengameart.org/content/cat-purr-meow), [Thimras — Park ambiences](https://opengameart.org/content/park-ambiences), [HaelDB — Footsteps](https://opengameart.org/content/footsteps-leather-cloth-armor).
+Ses kayıtları (CC0, düzenlenmiş): [Joseph SARDIN — Little Meow of a Cat #1](https://bigsoundbank.com/little-meow-of-a-cat-s0494.html), [Thimras — Park ambiences](https://opengameart.org/content/park-ambiences), [HaelDB — Footsteps](https://opengameart.org/content/footsteps-leather-cloth-armor).
