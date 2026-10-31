@@ -17,8 +17,8 @@ Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudfl
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
 
-Güncel oyun: **v0.2.5**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+Güncel oyun: **v0.2.6**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
 
-Son güncelleme: Yeşil/Kırmızı/Mavi sekmeli, ikon ve adet düğmeli sade rol seçimi; her renkte ilk sırada Rastgele; ev sayısıyla sınırlı rol toplamı; seçilen kartlarda renk vurgusu. Oda sahibi ve katılanlar lobide adını düzenleyip Kaydet kullanabilir; isimler oyuncu listesi, karakter ve ev tabelasında birlikte değişir. Aynı isimlere numara eklenir. Menü adları kısaltılıp ortaklaştırıldı. Yaşayan karakter modeli değiştirilmedi.
+Son güncelleme: yuvarlak taş gövdeli, kiremit çatılı yeni meydan kuyusu; onaylanan 17 rol ve Rastgele ikonları; iki sütunlu büyük ikon/adet kartları ve uyumlu canlı renkler. Ayarlar menüsünde sarı Lobiye Dön, turuncu Ses-Voice, yeşil Devam ve kırmızı Çıkış bulunur; Dekor düğmesi kaldırıldı. Adım, kapı, savurma ve darbe sesleri yumuşatıldı. Yaşayan karakter modeli değiştirilmedi.
 
-Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.5** yazısını doğrulayıp yeni oda kurmalıdır.
+Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.6** yazısını doğrulayıp yeni oda kurmalıdır.
