@@ -1,4 +1,4 @@
-name: Publish Kervan 3D v0.2.12
+name: Publish Kervan 3D v0.2.13
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://charlotte-bones-enhancing-serum.trycloudflare.com
+          SOURCE: https://circulation-challenge-media-outcome.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo 'ba3e5ce8503b9bc3dc0a89f1db734902e7a0dc0eca02883595e6158e1bcdb3d7  game.pck' | sha256sum --check --strict
-          echo 'cdb332c897085cc86c1f55bf03339d141429d03ecdd41d47e503623c4e160f22  latest.json' | sha256sum --check --strict
+          echo 'e3352f66a331673e96bead71801a12fc8ed27daef0fd482f3af8a687683e27d1  game.pck' | sha256sum --check --strict
+          echo '59dee2408b8fb62870e818b92159249e63bd896225fe36b081a22b9fc9d672f1  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,12 +29,14 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Adımların bas ağırlıklı tonu daha duyulur, yumuşak pıt tonuna değiştirildi ve seviyesi yükseltildi.
-          - Yüksek zemin ve ev katlarında adım sesini kesen yükseklik kontrolü kaldırıldı.
-          - Kuş sesi belirgin biçimde kısıldı; aralığı 28–45 saniyeye çıkarıldı.
+          - Oda açmadan köyde gezerken yürüyüş ve koşu sesinin çalışmaması düzeltildi. Kendi adımlarınız artık oda kaydına bağlı değil.
+          - Ayarlar, Görüntü ve Ses sekmelerine ayrıldı. Ses bölümünde efektler, müzik, ayak, kuş, kedi ve bıçak için ayrı çizgiler bulunur.
+          - Ses kontrolleri başlangıçta yüzde50; ayarlar kaydedilir ve yeniden açılışta korunur. Kategorilerde yüzde100 normal seviyenin iki katına kadar izin verir.
+          - Ses-Voice ekranında her oyuncunun Sustur seçeneğinin altında kendi ses çizgisi bulunur. Kişi sesleri yüzde50 başlar; değişiklik yalnız sizin duyduğunuz sesi etkiler.
+          - Voice çizgileri düzenli liste yenilenirken kaybolmaz; odadan çıkınca kişi ayarları sıfırlanır.
           
-          Gerçek oyun yürüyüşü sırasında ses çıkışı AudioEffectCapture ile ölçüldü; yükseltilmiş zeminde de adımların ses verdiği doğrulandı. Test sesi kullanıcı mikrofonundan kaydedilmez.
-          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.12 güncellemesini alabilirsiniz.
+          Oda olmadan gerçek yürüyüş/koşu ses çıkışı, bağımsız ses kısıp açma, kayıt/yeniden yükleme, kişi başına voice gain ve sessize alma, ev/gece/hayalet kanal ayrımı ve arayüz yerleşimi test edildi.
+          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.13 güncellemesini alın.
           NOTES
-          gh release create v0.2.12 game.pck latest.json --draft --title 'Kervan 3D v0.2.12' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.2.12 --draft=false --latest
+          gh release create v0.2.13 game.pck latest.json --draft --title 'Kervan 3D v0.2.13' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.2.13 --draft=false --latest
