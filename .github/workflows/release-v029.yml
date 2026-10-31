@@ -1,0 +1,44 @@
+name: Publish Kervan 3D v0.2.9
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/release-v029.yml]
+permissions:
+  contents: write
+concurrency:
+  group: release-v029
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download and verify signed release files
+        env:
+          SOURCE: https://explosion-org-lucas-philips.trycloudflare.com
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
+          curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
+          echo '3593839f4fd8d6d3e831b8afd132ffc20a3ccaf66b95c4932af7ac837ce0f922  game.pck' | sha256sum --check --strict
+          echo '0178e32bc3fae9dce187ba7cf28ef3cad965e821d159283f1c73575b823a37ba  latest.json' | sha256sum --check --strict
+      - name: Publish verified update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          cat > notes.md <<'NOTES'
+          - Twerk sırasında karakter yerinde kalırken kamera fareyle döndürülebilir.
+          - Ninja duruşunda kollar biraz açıldı; hafif çapraz durur.
+          - Kuyunun içindeki asılı kova kaldırıldı; yandaki kova korunur.
+          - Kedi sesindeki mırlama kaldırıldı; tek miyav kaydı kullanılır.
+          
+          Kontroller: Godot smoke ve yerel kamera/duruş testleri geçti. Yaşayan karakter modeli değiştirilmedi.
+          
+          Güncellemek için Kervan3D.exe dosyasını tamamen kapatıp yeniden açın; v0.2.9 yazısını doğrulayıp yeni oda kurun. Yeni ZIP gerekmez.
+          
+          Yeni miyav: Joseph SARDIN / BigSoundBank, CC0: https://bigsoundbank.com/little-meow-of-a-cat-s0494.html
+          NOTES
+          gh release create v0.2.9 game.pck latest.json --draft --title 'Kervan 3D v0.2.9' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.2.9 --draft=false --latest
