@@ -1,4 +1,4 @@
-name: Publish Kervan 3D v0.2.11
+name: Publish Kervan 3D v0.2.12
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://vids-pos-spine-chocolate.trycloudflare.com
+          SOURCE: https://charlotte-bones-enhancing-serum.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '1737d6ed9cffcc04769f95be2a8094f80dcf52242cc942b87598939ada5c666d  game.pck' | sha256sum --check --strict
-          echo 'f84ce5e8bf3a4ef96076338496a687d6cc21894e744429a3fbb7920d9f673fad  latest.json' | sha256sum --check --strict
+          echo 'ba3e5ce8503b9bc3dc0a89f1db734902e7a0dc0eca02883595e6158e1bcdb3d7  game.pck' | sha256sum --check --strict
+          echo 'cdb332c897085cc86c1f55bf03339d141429d03ecdd41d47e503623c4e160f22  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,14 +29,12 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Sürekli kuş korosu ve ortam uğultusu kaldırıldı.
-          - Kuşlar dışarıda gündüz 14–26 saniye arayla kısa cik cik yapar.
-          - Yürüyüşe kısa, yumuşak pıt pıt adım sesi eklendi; diğer oyuncular kendi adım sesinizi kesemez.
-          - Adımları ve kuşları bastırmayan kısık, sakin enstrümantal müzik eklendi.
-          - Kuyuda içerideki asılı kova durur; duvardaki kova ve raf yoktur.
+          - Adımların bas ağırlıklı tonu daha duyulur, yumuşak pıt tonuna değiştirildi ve seviyesi yükseltildi.
+          - Yüksek zemin ve ev katlarında adım sesini kesen yükseklik kontrolü kaldırıldı.
+          - Kuş sesi belirgin biçimde kısıldı; aralığı 28–45 saniyeye çıkarıldı.
           
-          Oyun içinde gerçek yürüyüş, ses düzeyleri, aralıklı kuş ve iç mekan/sessize alma kontrolleri geçti.
-          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.11 güncellemesini alabilirsiniz.
+          Gerçek oyun yürüyüşü sırasında ses çıkışı AudioEffectCapture ile ölçüldü; yükseltilmiş zeminde de adımların ses verdiği doğrulandı. Test sesi kullanıcı mikrofonundan kaydedilmez.
+          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.12 güncellemesini alabilirsiniz.
           NOTES
-          gh release create v0.2.11 game.pck latest.json --draft --title 'Kervan 3D v0.2.11' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.2.11 --draft=false --latest
+          gh release create v0.2.12 game.pck latest.json --draft --title 'Kervan 3D v0.2.12' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.2.12 --draft=false --latest
