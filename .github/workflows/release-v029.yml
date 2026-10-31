@@ -1,4 +1,4 @@
-name: Publish Kervan 3D v0.2.9
+name: Publish Kervan 3D v0.2.10
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://explosion-org-lucas-philips.trycloudflare.com
+          SOURCE: https://assumes-applies-wives-patients.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '3593839f4fd8d6d3e831b8afd132ffc20a3ccaf66b95c4932af7ac837ce0f922  game.pck' | sha256sum --check --strict
-          echo '0178e32bc3fae9dce187ba7cf28ef3cad965e821d159283f1c73575b823a37ba  latest.json' | sha256sum --check --strict
+          echo '5dd015501d5a1daeadee460d4628d1bbcc80c1b662c9f063b7848058a4df17d3  game.pck' | sha256sum --check --strict
+          echo '57dadf209e4065fe4230ae545274863b001023cf1aa6e94690069c66920f5052  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,16 +29,11 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Twerk sırasında karakter yerinde kalırken kamera fareyle döndürülebilir.
-          - Ninja duruşunda kollar biraz açıldı; hafif çapraz durur.
-          - Kuyunun içindeki asılı kova kaldırıldı; yandaki kova korunur.
-          - Kedi sesindeki mırlama kaldırıldı; tek miyav kaydı kullanılır.
+          - Kuyunun içindeki ipe asılı kova geri getirildi.
+          - Duvardaki dış kova ve rafı kaldırıldı.
           
-          Kontroller: Godot smoke ve yerel kamera/duruş testleri geçti. Yaşayan karakter modeli değiştirilmedi.
-          
-          Güncellemek için Kervan3D.exe dosyasını tamamen kapatıp yeniden açın; v0.2.9 yazısını doğrulayıp yeni oda kurun. Yeni ZIP gerekmez.
-          
-          Yeni miyav: Joseph SARDIN / BigSoundBank, CC0: https://bigsoundbank.com/little-meow-of-a-cat-s0494.html
+          Oyun içi görüntü ve tek kovanın içeride bulunduğu kontrol edildi.
+          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.10 güncellemesini alabilirsiniz.
           NOTES
-          gh release create v0.2.9 game.pck latest.json --draft --title 'Kervan 3D v0.2.9' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.2.9 --draft=false --latest
+          gh release create v0.2.10 game.pck latest.json --draft --title 'Kervan 3D v0.2.10' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.2.10 --draft=false --latest
