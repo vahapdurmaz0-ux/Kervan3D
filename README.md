@@ -17,10 +17,10 @@ Bu, arkadaşlarla oynama/test sürümüdür. Oda bağlantıları geçici Cloudfl
 
 [Tüm sürümler ve açıklamalar](https://github.com/vahapdurmaz0-ux/Kervan3D/releases)
 
-Güncel oyun: **v0.2.11**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
+Güncel oyun: **v0.2.12**. Önceden indirenler uygulamayı tamamen kapatıp yeniden açarak güncel oyun paketini otomatik alabilir; yeni ZIP indirmeleri gerekmez.
 
-Son güncelleme: sürekli kuş korosu ve ortam uğultusu kaldırıldı. Kuşlar dışarıda gündüz 14–26 saniye arayla kısa cik cik yapar. Yürüyüşte kısa, yumuşak pıt pıt sesi duyulur; diğer oyuncular kendi adım sesinizi kesemez. Arkada adımları ve kuşları bastırmayan kısık enstrümantal müzik çalar. Kuyunun içindeki asılı kova durur; duvardaki kova ve rafı yoktur. Karakter modeli korunmuştur.
+Son güncelleme: sürekli kuş korosu ve ortam uğultusu kaldırıldı. Kuşlar dışarıda gündüz 28–45 saniye arayla çok kısık cik cik yapar. Yürüyüşte daha belirgin, yumuşak pıt pıt sesi duyulur; yüksek zeminlerde de çalışır ve diğer oyuncular kendi adım sesinizi kesemez. Arkada adımları ve kuşları bastırmayan kısık enstrümantal müzik çalar. Kuyunun içindeki asılı kova durur; duvardaki kova ve rafı yoktur. Karakter modeli korunmuştur.
 
-Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.11** yazısını doğrulayıp yeni oda kurmalıdır.
+Herkes uygulamayı tamamen kapatıp **Kervan3D.exe** ile yeniden açmalı, **v0.2.12** yazısını doğrulayıp yeni oda kurmalıdır.
 
 Ses kayıtları (CC0, düzenlenmiş): [Joseph SARDIN — Little Meow of a Cat #1](https://bigsoundbank.com/little-meow-of-a-cat-s0494.html).
