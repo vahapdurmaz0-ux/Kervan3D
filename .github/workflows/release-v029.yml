@@ -7,7 +7,7 @@ permissions:
   contents: write
 concurrency:
   group: release-v029
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -20,11 +20,9 @@ jobs:
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o 'game.pck'
           curl --fail --location --retry 5 --max-time 180 "$SOURCE/latest.json" -o 'latest.json'
-          curl --fail --location --retry 5 --max-time 180 "$SOURCE/Guya3D-Setup-v0.3.7.exe" -o 'Guya3D-Setup-v0.3.7.exe'
           echo '3d793a0f17251c08135964cefc76baabaa93cb8cca772be8fd823035fb0fb39b  game.pck' | sha256sum --check --strict
           echo 'b342eac90bfeaec470907d5ef60660dbc0100a494ab613519674e96f995a22fc  latest.json' | sha256sum --check --strict
-          echo 'cbde4928af7354d8a396313473300f58321e3bcc095b9edacbb3c9b1cf9873fb  Guya3D-Setup-v0.3.7.exe' | sha256sum --check --strict
-      - name: Publish update and installer
+      - name: Publish verified automatic update
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -41,5 +39,5 @@ jobs:
           Kontrol: gerçek fare/kamera dönüşü ve TAB/ESC testleri; sol tık kontrol kilidi; kayıt/Sürgün kilitleri; eski tuş ayarı geçişi; 2, 4, 7, 20 oyuncu arayüzü; ev içi gece saldırısında gerçek hareket; imzalı paket açılışı; tek kurulum dosyası bütünlük kontrolü.
           Mevcut oyun güncellemeyi arka planda indirir; sonraki açılışta uygular.
           NOTES
-          gh release create v0.3.7 game.pck latest.json Guya3D-Setup-v0.3.7.exe --draft --title 'Güya 3D v0.3.7' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release create v0.3.7 game.pck latest.json --draft --title 'Güya 3D v0.3.7' --notes-file notes.md --target "$GITHUB_SHA"
           gh release edit v0.3.7 --draft=false --latest
