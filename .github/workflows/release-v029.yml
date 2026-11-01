@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.0
+name: Publish Guya 3D v0.3.1
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://inputs-stones-smilies-branches.trycloudflare.com
+          SOURCE: https://rim-cbs-begin-coat.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '5970a8a1c331096cbdc3693efd019ba0aceb1a603d09881858e21cbdf7824bd5  game.pck' | sha256sum --check --strict
-          echo '7de49502b4a24ed1c51b0e73956425b586d67e55a1799854dd62513902f77c20  latest.json' | sha256sum --check --strict
+          echo '22d03314889d05b3d3473ab513f97996b786295a9ed83cc2e97c8fa39d073f06  game.pck' | sha256sum --check --strict
+          echo '2bcddc9bd85fcb68629b7022686b3636fe45af66752932189ebef272d5ecb924  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,17 +29,18 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Oyunun adı Güya 3D oldu. Ana menü, lobi, rol seçimi ve yan sekmeli ayarlar onaylanan görsel düzenlere göre yenilendi. Şapka ve erkek/kız seçimi Moda sekmesine taşındı.
-          - Kullanıcının sağladığı erkek karakterin 65 kemikli gerçek modeli eklendi. Yürüyüş, koşu, saldırı, oturma ve el sallama hareketleri bağlandı; saç oyuncu renginde, köylü kıyafeti sabit. Bıçak modelin sağ elini izler.
-          - Köy aynı boyutta kaldı; çevresinde 3D dağlar, kiremitli yeni evler ve büyük sahip tabelaları var. İç mekanlar dış kameraların görüşünden uzaklaştırıldı.
-          - Onaylanan 17 yeni rol adı ve figürlü ikonları kullanılıyor. Kışkırtıcı bütün oyun iki hak; Cinci kişi başına bütün oyun bir defa, günlük bir işlem yapar. Rol kılavuzu üç sayfalık kartlarla açıklama ve gerçek hakları gösterir.
-          - Üstteki toplu rol şeridi kaldırıldı; oyuncunun kendi rolü solda ikon ve adla gösterilir. İzci seçilen eve gelenlerin renkli izlerini görür. Gece 45+10 düzeni ve gerçek hareket kaydı korunur.
-          - Oda değiştirme, taşıma/gece geçişi, ev izni, rol sonuçları ve yeniden katılan kişinin voice ayarlarının temizliği kontrol edildi. Ses kategorileri ve kişi başına ses kontrolleri korunur.
+          - Kullanıcının verdiği kız GLB modeli eklendi. Hazır iskelet içermeyen modelin 11 kaynak parçası korunarak 13 kemikli iskelet ve omuz/dirsek/diz ağırlıkları oluşturuldu.
+          - Yeni modellerde ifadelerin görünmemesine yol açan güncelleme sırası düzeltildi. El salla, dans, gül, şaşır, twerk, eller ileri, eller yukarı ve ninja koşusu iki karaktere de aktarılır.
+          - Yeleği kollardan çeken hatalı kemik ağırlıkları düzeltildi. Omuz içi gömlek astarı birleşim açıklıklarını kapatır; kol açıları kafanın içine kapanmayacak şekilde sınırlandırılır. Eğilmelerde ayakların zemine gömülmesi azaltıldı.
+          - Kaynak karakter parçaları, geometri ve dokular korunur. Saç seçilen oyuncu renginde, kıyafetler sabittir.
+          - Şapka ve bere geçici olarak kaldırıldı. Moda sekmesinde erkek ve kız için ayrı yüzlü seçim ikonları bulunur.
+          - Rol ikonlarının kesilmesine ve yan ikondan parçalar taşmasına yol açan atlas kırpma ölçüleri düzeltildi.
+          - Ana menü arka planındaki evler oyundaki gibi kare gövdeli, üçgen alınlıklı ve kiremit çatılı hale getirildi.
           
-          Kontroller: gerçek Godot görüntüleri, imzalı paketin eski başlatıcıyla açılması, 65 kemikli modelin animasyonlu GLB olarak yeniden içe aktarılması, rol/gece/oda testleri ve dört WebSocket istemcisiyle taşıma, gece kaydı, voice veri yönlendirmesi ve oyuncu çıkarma.
-          Gerçek mikrofon görüşmesi, 20 insanla yük testi ve tüm ekran kartları denenmedi.
+          Kontrol: iki karakterde sekiz ifade, dört animasyon zamanı ve üç bakış açısı; 48 ön/yan/arka görüntünün incelenmesi; bütün kaynak parçaların görünür kalması; yürürken el hareketi ve dansta hareket kilidi. İki model de 13 animasyonlu GLB olarak dışa aktarılıp tekrar içe alındı.
+          Erkek/kız karışık dört WebSocket istemcisinde taşıma/itme, gece kaydı, voice veri yönlendirmesi ve oyuncu çıkarma testleri geçti. İmzalı paket eski başlatıcı üzerinden açıldı.
           
-          Mevcut Kervan3D.exe başlatıcısını kapatıp yeniden açarak güncellemeyi alın. Önceki kişisel ses ve fare ayarlarınız korunur.
+          Mevcut başlatıcıyı kapatıp yeniden açarak v0.3.1 güncellemesini alın.
           NOTES
-          gh release create v0.3.0 game.pck latest.json --draft --title 'Güya 3D v0.3.0' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.0 --draft=false --latest
+          gh release create v0.3.1 game.pck latest.json --draft --title 'Güya 3D v0.3.1' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.1 --draft=false --latest
