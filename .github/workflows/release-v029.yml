@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.3
+name: Publish Guya 3D v0.3.4
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://wanted-publications-barn-relocation.trycloudflare.com
+          SOURCE: https://hepatitis-impacts-typing-mailed.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '2abda1621b45bacf1e90e4825eb7b82eead242e108b8bdf3c20d2f57d75cabce  game.pck' | sha256sum --check --strict
-          echo '94368ffc7d1469be651d4bb6f2cf4f34d26199001ec97e3b369585d0218a6800  latest.json' | sha256sum --check --strict
+          echo '88807331396b8bb878f924e89d6e2b42316b2ec823a08cca47dd0fceda3ae6fa  game.pck' | sha256sum --check --strict
+          echo '2bcbfa6b765ce42ea3adb27c6c81eb09499410b501593e6588ecd92f3f2def04  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,15 +29,16 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - İzciye gelen renkli ayak izleri artık gerçek köyün içinde kamera takibiyle sırayla gösterilir. Kamera kayıtlı yolu takip eder; oyuncu yerinden oynatılmaz.
-          - İlk açı aynı yükseklikte, evin yol tarafındadır. Başlangıçta çatının izleri kapatması önlenir.
-          - Birden fazla ziyaretçinin izleri ayrı ayrı izlenir. Önceki iz, Sonraki iz, Dön ve yeniden açmak için İzler düğmeleri eklendi.
-          - Bu gösterim yalnız izleri almaya yetkili oyuncuda, gündüz açılır. Gece saldırı süresini kapatmaz. Oylama, ölüm veya oda/gece değişiminde kapanır; kullanılmayan kamera render edilmez.
-          - Röntgencinin sabit lamba kamerasının açısı korunur.
+          - Sekiz ifade için karakterin gerçek hareket pozlarından ayrı ikonlar hazırlandı ve ifade çarkına eklendi.
+          - Oda listesindeki eski yüzler kaldırıldı. Kartlar artık seçilen erkek/kız karakterin yüzünü, oyuncunun seçtiği saç rengiyle gösterir. Kırk hazır portre kullanılır; ek canlı kamera çalıştırılmaz.
+          - Ses-Voice ayrı pencere yerine Görüntü ve Ses ile aynı ayar penceresinde üçüncü sekme oldu.
+          - Sesli sohbet açma, tümünü susturma, mikrofon seçme, konuşma tuşu ve konuşma ses seviyesi aynı bölümde toplandı. Oyuncuya özel ses çizgisi Sustur düğmesinin altında kalır.
+          - Sekme değiştirildiğinde tuş atama bekleyişi iptal olur; ayarlar kapanınca kontroller doğru geri verilir.
+          - Önceki sürümdeki İzci ayak izi kamera takibi ve aynı yükseklikte yol tarafındaki başlangıç açısı bu sürüme dahildir.
           
-          Kontrol: gerçek eğri yolda kamera ilerlemesi, izlerin sırayla belirmesi, çoklu ziyaretçi, kontrolün geri verilmesi, gece/oylama/oda temizliği; 45+10 gece akışı; gerçek WebSocket istemcilerinde sosyal etkileşim, gece kaydı, voice yönlendirmesi ve oyuncu çıkarma; eski başlatıcıyla imzalı güncellemenin açılması. Örnek rota gerçek Godot görüntüsüyle ayrıca incelendi.
+          Kontrol: gerçek Godot arayüz görüntüleri; kırk portre eşleşmesi, sekiz ifade ikonu, üçüncü sekme yerleşimi, kişi sesi ve konuşma tuşu; dört gerçek WebSocket istemcisiyle voice veri yönlendirmesi; kurallar/arayüz regresyonu; eski başlatıcıyla imzalı paket açılışı.
           
-          Mevcut başlatıcıyı kapatıp yeniden açarak v0.3.3 güncellemesini alın.
+          Mevcut başlatıcıyı kapatıp yeniden açarak v0.3.4 güncellemesini alın.
           NOTES
-          gh release create v0.3.3 game.pck latest.json --draft --title 'Güya 3D v0.3.3' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.3 --draft=false --latest
+          gh release create v0.3.4 game.pck latest.json --draft --title 'Güya 3D v0.3.4' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.4 --draft=false --latest
