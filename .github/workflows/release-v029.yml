@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.7
+name: Publish Guya 3D v0.3.8
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify release
         env:
-          SOURCE: https://riverside-hints-oldest-eligibility.trycloudflare.com
+          SOURCE: https://patents-municipality-nodes-equipped.trycloudflare.com
         run: |
           set -euo pipefail
-          curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o 'game.pck'
-          curl --fail --location --retry 5 --max-time 180 "$SOURCE/latest.json" -o 'latest.json'
-          echo '3d793a0f17251c08135964cefc76baabaa93cb8cca772be8fd823035fb0fb39b  game.pck' | sha256sum --check --strict
-          echo 'b342eac90bfeaec470907d5ef60660dbc0100a494ab613519674e96f995a22fc  latest.json' | sha256sum --check --strict
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o game.pck
+          curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
+          echo '2be093828a913a5a2d527c02ced1889a776d80564e21fd461dfa68eada02566c  game.pck' | sha256sum --check --strict
+          echo '1f3c691c6083fd0c7c8f220c9e0f29cf0771b0982a607643920adddd7ec8c2f9  latest.json' | sha256sum --check --strict
       - name: Publish verified automatic update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,15 +29,16 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - TAB: fare imlecini serbest bırak / kameraya dön. ESC ayarları açıp kapatır; ayarlardan TAB ile oyuna dönülebilir. Tuş Kısayollar bölümünden değiştirilebilir.
-          - Eski TAB bilgi kısayolu I tuşuna taşınır. Gece TAB yetenek ekranı açmaz.
-          - İmleç açıkken kamera fareyi izlemez. Sol tık artık kontrol kilidini kendiliğinden kaldırmaz; kayıt ve Sürgün aşamalarındaki kilitler korunur.
-          - Sürgün kartları 2–4 oyuncuda ekranı dolduracak şekilde gerilmez; ortalanmış sabit boyut kullanılır.
-          - Karakter görselleri iki kat çözünürlükte, kenar yumuşatmayla yeniden oluşturuldu. 7 ve 20 kişilik düzenlerin alt düğmeleri ekrana sığar.
-          - Önceki sürümdeki Nunito fontu, erkek/kız portreleri ve kırmızı takım simgesi dahildir.
+          - Sunucuda hareket mesafesi/hızı ve doğrudan duvar geçişi denetlenir; sahte konumlar düzeltilir.
+          - Oyuncu ve işlem başına istek sınırları, kayıt süresi ve bozuk veri denetimleri güçlendirildi.
+          - Gece saldırı ve yaralanma bilgileri ilgisiz evlere gönderilmez.
+          - İnternet bağlantı yardımcısının dosya bütünlüğü çalıştırılmadan doğrulanır.
+          - Etkileşim ve tuş ayarlarında renkli simgeler/tuşlar; değiştirilen kısayollar görüntüye yansır.
+          - Ana Menü düğmesi lobi sohbetinden uzaklaştırıldı.
 
-          Kontrol: gerçek fare/kamera dönüşü ve TAB/ESC testleri; sol tık kontrol kilidi; kayıt/Sürgün kilitleri; eski tuş ayarı geçişi; 2, 4, 7, 20 oyuncu arayüzü; ev içi gece saldırısında gerçek hareket; imzalı paket açılışı; tek kurulum dosyası bütünlük kontrolü.
-          Mevcut oyun güncellemeyi arka planda indirir; sonraki açılışta uygular.
+          Kontroller: dört WebSocket istemcisiyle saldırgan istekler ve normal hareket, gece saldırısı, kayıt, taşıma, ses kanalları ve kapasite; yerel imzalı paket açılışı ve güncelleyici bütünlük testleri geçti.
+          Oda sahibi sunucu olmaya devam eder; bu güncelleme tam hile koruması veya bağımsız güvenlik sertifikası değildir.
+          Mevcut başlatıcı güncellemeyi arka planda indirir, sonraki açılışta uygular.
           NOTES
-          gh release create v0.3.7 game.pck latest.json --draft --title 'Güya 3D v0.3.7' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.7 --draft=false --latest
+          gh release create v0.3.8 game.pck latest.json --draft --title 'Güya 3D v0.3.8' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.8 --draft=false --latest
