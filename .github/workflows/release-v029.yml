@@ -1,4 +1,4 @@
-name: Publish Kervan 3D v0.2.13
+name: Publish Guya 3D v0.3.0
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://circulation-challenge-media-outcome.trycloudflare.com
+          SOURCE: https://inputs-stones-smilies-branches.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo 'e3352f66a331673e96bead71801a12fc8ed27daef0fd482f3af8a687683e27d1  game.pck' | sha256sum --check --strict
-          echo '59dee2408b8fb62870e818b92159249e63bd896225fe36b081a22b9fc9d672f1  latest.json' | sha256sum --check --strict
+          echo '5970a8a1c331096cbdc3693efd019ba0aceb1a603d09881858e21cbdf7824bd5  game.pck' | sha256sum --check --strict
+          echo '7de49502b4a24ed1c51b0e73956425b586d67e55a1799854dd62513902f77c20  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,14 +29,17 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Oda açmadan köyde gezerken yürüyüş ve koşu sesinin çalışmaması düzeltildi. Kendi adımlarınız artık oda kaydına bağlı değil.
-          - Ayarlar, Görüntü ve Ses sekmelerine ayrıldı. Ses bölümünde efektler, müzik, ayak, kuş, kedi ve bıçak için ayrı çizgiler bulunur.
-          - Ses kontrolleri başlangıçta yüzde50; ayarlar kaydedilir ve yeniden açılışta korunur. Kategorilerde yüzde100 normal seviyenin iki katına kadar izin verir.
-          - Ses-Voice ekranında her oyuncunun Sustur seçeneğinin altında kendi ses çizgisi bulunur. Kişi sesleri yüzde50 başlar; değişiklik yalnız sizin duyduğunuz sesi etkiler.
-          - Voice çizgileri düzenli liste yenilenirken kaybolmaz; odadan çıkınca kişi ayarları sıfırlanır.
+          - Oyunun adı Güya 3D oldu. Ana menü, lobi, rol seçimi ve yan sekmeli ayarlar onaylanan görsel düzenlere göre yenilendi. Şapka ve erkek/kız seçimi Moda sekmesine taşındı.
+          - Kullanıcının sağladığı erkek karakterin 65 kemikli gerçek modeli eklendi. Yürüyüş, koşu, saldırı, oturma ve el sallama hareketleri bağlandı; saç oyuncu renginde, köylü kıyafeti sabit. Bıçak modelin sağ elini izler.
+          - Köy aynı boyutta kaldı; çevresinde 3D dağlar, kiremitli yeni evler ve büyük sahip tabelaları var. İç mekanlar dış kameraların görüşünden uzaklaştırıldı.
+          - Onaylanan 17 yeni rol adı ve figürlü ikonları kullanılıyor. Kışkırtıcı bütün oyun iki hak; Cinci kişi başına bütün oyun bir defa, günlük bir işlem yapar. Rol kılavuzu üç sayfalık kartlarla açıklama ve gerçek hakları gösterir.
+          - Üstteki toplu rol şeridi kaldırıldı; oyuncunun kendi rolü solda ikon ve adla gösterilir. İzci seçilen eve gelenlerin renkli izlerini görür. Gece 45+10 düzeni ve gerçek hareket kaydı korunur.
+          - Oda değiştirme, taşıma/gece geçişi, ev izni, rol sonuçları ve yeniden katılan kişinin voice ayarlarının temizliği kontrol edildi. Ses kategorileri ve kişi başına ses kontrolleri korunur.
           
-          Oda olmadan gerçek yürüyüş/koşu ses çıkışı, bağımsız ses kısıp açma, kayıt/yeniden yükleme, kişi başına voice gain ve sessize alma, ev/gece/hayalet kanal ayrımı ve arayüz yerleşimi test edildi.
-          Kervan3D.exe dosyasını kapatıp yeniden açarak v0.2.13 güncellemesini alın.
+          Kontroller: gerçek Godot görüntüleri, imzalı paketin eski başlatıcıyla açılması, 65 kemikli modelin animasyonlu GLB olarak yeniden içe aktarılması, rol/gece/oda testleri ve dört WebSocket istemcisiyle taşıma, gece kaydı, voice veri yönlendirmesi ve oyuncu çıkarma.
+          Gerçek mikrofon görüşmesi, 20 insanla yük testi ve tüm ekran kartları denenmedi.
+          
+          Mevcut Kervan3D.exe başlatıcısını kapatıp yeniden açarak güncellemeyi alın. Önceki kişisel ses ve fare ayarlarınız korunur.
           NOTES
-          gh release create v0.2.13 game.pck latest.json --draft --title 'Kervan 3D v0.2.13' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.2.13 --draft=false --latest
+          gh release create v0.3.0 game.pck latest.json --draft --title 'Güya 3D v0.3.0' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.0 --draft=false --latest
