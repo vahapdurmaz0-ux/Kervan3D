@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.6
+name: Publish Guya 3D v0.3.7
 on:
   push:
     branches: [main]
@@ -15,15 +15,15 @@ jobs:
     steps:
       - name: Download and verify release
         env:
-          SOURCE: https://contacted-softball-contractor-thin.trycloudflare.com
+          SOURCE: https://riverside-hints-oldest-eligibility.trycloudflare.com
         run: |
           set -euo pipefail
-          curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o game.pck
-          curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          curl --fail --location --retry 5 --max-time 180 "$SOURCE/Guya3D-Setup-v0.3.6.exe" -o Guya3D-Setup-v0.3.6.exe
-          echo '045f6070d258dbff02513f148c9d6dd6abe54136ea9a7a23f8f51657c28f80ee  game.pck' | sha256sum --check --strict
-          echo 'ea56972943b6043de64984c7205052e9f550d3e186adaa1a99297267d2632fac  latest.json' | sha256sum --check --strict
-          echo 'f58d5e9b6588d3cf4e5eb91ae2bfb1a11f9667a923a1ca855f6c708b432592ec  Guya3D-Setup-v0.3.6.exe' | sha256sum --check --strict
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o 'game.pck'
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/latest.json" -o 'latest.json'
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/Guya3D-Setup-v0.3.7.exe" -o 'Guya3D-Setup-v0.3.7.exe'
+          echo '3d793a0f17251c08135964cefc76baabaa93cb8cca772be8fd823035fb0fb39b  game.pck' | sha256sum --check --strict
+          echo 'b342eac90bfeaec470907d5ef60660dbc0100a494ab613519674e96f995a22fc  latest.json' | sha256sum --check --strict
+          echo 'cbde4928af7354d8a396313473300f58321e3bcc095b9edacbb3c9b1cf9873fb  Guya3D-Setup-v0.3.7.exe' | sha256sum --check --strict
       - name: Publish update and installer
         env:
           GH_TOKEN: ${{ github.token }}
@@ -31,15 +31,15 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Arayüz fontu Nunito ile değiştirildi. Başlık, rol adı, sayaç ve açıklamaların kalınlıkları tutarlı hale getirildi; uygulanmayan değişken font ağırlığı düzeltildi.
-          - Moda bölümünde erkek/kız seçenekleri gerçek oyun karakterlerinin portrelerini gösterir. Saç rengi seçildiğinde iki portre de aynı renge güncellenir.
-          - Kırmızı oyuncu sayısı ayarındaki mavi bıçak kaldırıldı; kırmızı takım simgesi eklendi.
-          - Sürgün ve ölüm bildirimi de aynı font ailesini kullanır; yapay aşırı kalınlaştırma kaldırıldı.
-          - v0.3.5 gece akışı korunur: seçim, 10 saniye saldırı, ardından gece içinde 10 saniye kayıt.
+          - TAB: fare imlecini serbest bırak / kameraya dön. ESC ayarları açıp kapatır; ayarlardan TAB ile oyuna dönülebilir. Tuş Kısayollar bölümünden değiştirilebilir.
+          - Eski TAB bilgi kısayolu I tuşuna taşınır. Gece TAB yetenek ekranı açmaz.
+          - İmleç açıkken kamera fareyi izlemez. Sol tık artık kontrol kilidini kendiliğinden kaldırmaz; kayıt ve Sürgün aşamalarındaki kilitler korunur.
+          - Sürgün kartları 2–4 oyuncuda ekranı dolduracak şekilde gerilmez; ortalanmış sabit boyut kullanılır.
+          - Karakter görselleri iki kat çözünürlükte, kenar yumuşatmayla yeniden oluşturuldu. 7 ve 20 kişilik düzenlerin alt düğmeleri ekrana sığar.
+          - Önceki sürümdeki Nunito fontu, erkek/kız portreleri ve kırmızı takım simgesi dahildir.
 
-          Doğrulama: gerçek Godot arayüzü, Türkçe harfler ve gerçek font ağırlıkları, renk değişiminde iki portre, rol kartları ve 20 kişilik Sürgün yerleşimi; imzalı paket açılışı ve tek kurulum dosyasının bütünlüğü.
-          Mevcut kurulum güncellemeyi arka planda indirir; tamamlandıktan sonraki açılışta v0.3.6 uygulanır.
-          Yeni kurulum: Guya3D-Setup-v0.3.6.exe.
+          Kontrol: gerçek fare/kamera dönüşü ve TAB/ESC testleri; sol tık kontrol kilidi; kayıt/Sürgün kilitleri; eski tuş ayarı geçişi; 2, 4, 7, 20 oyuncu arayüzü; ev içi gece saldırısında gerçek hareket; imzalı paket açılışı; tek kurulum dosyası bütünlük kontrolü.
+          Mevcut oyun güncellemeyi arka planda indirir; sonraki açılışta uygular.
           NOTES
-          gh release create v0.3.6 game.pck latest.json Guya3D-Setup-v0.3.6.exe --draft --title 'Güya 3D v0.3.6' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.6 --draft=false --latest
+          gh release create v0.3.7 game.pck latest.json Guya3D-Setup-v0.3.7.exe --draft --title 'Güya 3D v0.3.7' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.7 --draft=false --latest
