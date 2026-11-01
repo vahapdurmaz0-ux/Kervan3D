@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.2
+name: Publish Guya 3D v0.3.3
 on:
   push:
     branches: [main]
@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Download and verify signed release files
         env:
-          SOURCE: https://reservations-ongoing-beverage-proc.trycloudflare.com
+          SOURCE: https://wanted-publications-barn-relocation.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo 'b42397e7b7cf20e569b82753f93743f79d1525c1db11d1179d4996f2c69125fa  game.pck' | sha256sum --check --strict
-          echo 'a5f076e4346616131f448cc979690e638205d8fd8a43106a3ace512c211d05d1  latest.json' | sha256sum --check --strict
+          echo '2abda1621b45bacf1e90e4825eb7b82eead242e108b8bdf3c20d2f57d75cabce  game.pck' | sha256sum --check --strict
+          echo '94368ffc7d1469be651d4bb6f2cf4f34d26199001ec97e3b369585d0218a6800  latest.json' | sha256sum --check --strict
       - name: Publish verified update
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,16 +29,15 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Kuyu çevresine dört sırtlıklı, kolçaklı ahşap bank eklendi. Toplam sekiz oturma yeri var; E ile oturup kalkılır.
-          - Banklar alçaltıldı; karakterin oturma noktası öne alınarak kıyafet ve bacakların oturağa gömülmesi düzeltildi.
-          - Dolu yere oturma engellenir. Sonradan odaya girenler mevcut oturan oyuncuları ve dolu yerleri doğru görür.
-          - Gecikmiş hareket paketlerinin oturma/kalkma işlemini geri almasına yol açan yarış düzeltildi. Lobi geçişleri de konum korumasını kullanır. Uzak oyuncu otururken kamera düğümü bulunmaması hatası giderildi.
-          - Röntgencinin kaydı artık ilgili eve bakan en yakın sokak lambasının açısından gösterilir. Görünür kamera modeli yoktur; açı sabittir, ziyaretçiyi tepeden takip etmez.
-          - Gerçek son on saniyelik hareket kaydı, ziyaretçi renkleri, yalnız yetkili oyuncuya gönderim ve kendi evinde saldırı olduğunda bölünmüş ekran korunur.
+          - İzciye gelen renkli ayak izleri artık gerçek köyün içinde kamera takibiyle sırayla gösterilir. Kamera kayıtlı yolu takip eder; oyuncu yerinden oynatılmaz.
+          - İlk açı aynı yükseklikte, evin yol tarafındadır. Başlangıçta çatının izleri kapatması önlenir.
+          - Birden fazla ziyaretçinin izleri ayrı ayrı izlenir. Önceki iz, Sonraki iz, Dön ve yeniden açmak için İzler düğmeleri eklendi.
+          - Bu gösterim yalnız izleri almaya yetkili oyuncuda, gündüz açılır. Gece saldırı süresini kapatmaz. Oylama, ölüm veya oda/gece değişiminde kapanır; kullanılmayan kamera render edilmez.
+          - Röntgencinin sabit lamba kamerasının açısı korunur.
           
-          Kontrol: sekiz oturma yeri ve gece temizliği; gerçek üç WebSocket istemcisiyle sonradan katılma, uzaktan oturma ve dolu yer reddi; dört istemcide sosyal etkileşim/gece kaydı/voice veri yönlendirmesi/oyuncu çıkarma; yirmi evde lamba noktası seçimi; gerçek Godot görüntüleri ve eski başlatıcıyla imzalı paket açılışı.
+          Kontrol: gerçek eğri yolda kamera ilerlemesi, izlerin sırayla belirmesi, çoklu ziyaretçi, kontrolün geri verilmesi, gece/oylama/oda temizliği; 45+10 gece akışı; gerçek WebSocket istemcilerinde sosyal etkileşim, gece kaydı, voice yönlendirmesi ve oyuncu çıkarma; eski başlatıcıyla imzalı güncellemenin açılması. Örnek rota gerçek Godot görüntüsüyle ayrıca incelendi.
           
-          Mevcut başlatıcıyı kapatıp yeniden açarak v0.3.2 güncellemesini alın.
+          Mevcut başlatıcıyı kapatıp yeniden açarak v0.3.3 güncellemesini alın.
           NOTES
-          gh release create v0.3.2 game.pck latest.json --draft --title 'Güya 3D v0.3.2' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.2 --draft=false --latest
+          gh release create v0.3.3 game.pck latest.json --draft --title 'Güya 3D v0.3.3' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.3 --draft=false --latest
