@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.4
+name: Publish Guya 3D v0.3.5
 on:
   push:
     branches: [main]
@@ -11,34 +11,38 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-      - name: Download and verify signed release files
+      - name: Download and verify release
         env:
-          SOURCE: https://hepatitis-impacts-typing-mailed.trycloudflare.com
+          SOURCE: https://latest-replacing-michel-parties.trycloudflare.com
         run: |
           set -euo pipefail
-          curl --fail --location --retry 5 --max-time 120 "$SOURCE/game.pck" -o game.pck
-          curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '88807331396b8bb878f924e89d6e2b42316b2ec823a08cca47dd0fceda3ae6fa  game.pck' | sha256sum --check --strict
-          echo '2bcbfa6b765ce42ea3adb27c6c81eb09499410b501593e6588ecd92f3f2def04  latest.json' | sha256sum --check --strict
-      - name: Publish verified update
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o 'game.pck'
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/latest.json" -o 'latest.json'
+          curl --fail --location --retry 5 --max-time 180 "$SOURCE/Guya3D-Setup-v0.3.5.exe" -o 'Guya3D-Setup-v0.3.5.exe'
+          echo 'ab1dd01e9ccce36dd5c2b768a5606031c256d6a49155b99738e9d0fe89aa9c02  game.pck' | sha256sum --check --strict
+          echo 'dc1f34080dbdbb07a2e8a6130e3af62d17394ed9702f0096a000105c9e77aa6f  latest.json' | sha256sum --check --strict
+          echo '47897471dd388ca195e0168ced6b83490c73e61cd4ed63826db9dd536d2a0dd9  Guya3D-Setup-v0.3.5.exe' | sha256sum --check --strict
+      - name: Publish verified update and installer
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Sekiz ifade için karakterin gerçek hareket pozlarından ayrı ikonlar hazırlandı ve ifade çarkına eklendi.
-          - Oda listesindeki eski yüzler kaldırıldı. Kartlar artık seçilen erkek/kız karakterin yüzünü, oyuncunun seçtiği saç rengiyle gösterir. Kırk hazır portre kullanılır; ek canlı kamera çalıştırılmaz.
-          - Ses-Voice ayrı pencere yerine Görüntü ve Ses ile aynı ayar penceresinde üçüncü sekme oldu.
-          - Sesli sohbet açma, tümünü susturma, mikrofon seçme, konuşma tuşu ve konuşma ses seviyesi aynı bölümde toplandı. Oyuncuya özel ses çizgisi Sustur düğmesinin altında kalır.
-          - Sekme değiştirildiğinde tuş atama bekleyişi iptal olur; ayarlar kapanınca kontroller doğru geri verilir.
-          - Önceki sürümdeki İzci ayak izi kamera takibi ve aynı yükseklikte yol tarafındaki başlangıç açısı bu sürüme dahildir.
-          
-          Kontrol: gerçek Godot arayüz görüntüleri; kırk portre eşleşmesi, sekiz ifade ikonu, üçüncü sekme yerleşimi, kişi sesi ve konuşma tuşu; dört gerçek WebSocket istemcisiyle voice veri yönlendirmesi; kurallar/arayüz regresyonu; eski başlatıcıyla imzalı paket açılışı.
-          
-          Mevcut başlatıcıyı kapatıp yeniden açarak v0.3.4 güncellemesini alın.
+          - Gece seçimi ardından 10 saniye saldırı, sonra 10 saniye kayıt izleme: toplam 20 saniye. Gündüz kayıtlar bitince başlar. Saldırı sırasında kayıt açılmaz; ölü oyuncuya kayıt gösterilmez.
+          - Evde saldırı sırasında kontrol kilitlenmesi düzeltildi. Açık ayar/sohbet pencereleri saldırı başlangıcında kontrolleri engellemez.
+          - Kısayollar sekmesi: oyun tuşlarını değiştir, seçimler kaydedilsin.
+          - Oda sahibi maç başlamadan oyuncu/ev kapasitesini değiştirebilir. Yetki, doluluk, roller ve evler sunucuda doğrulanır.
+          - Sürgün ekranı: isim, oy sayısı ve karakterler; 20 oyuncuda 5 sütun × 4 sıra.
+          - Çerçevesiz beyaz ölüm bildirimi ve altında rol ikonu/ismi.
+          - Onaylanan gece açılış görseli ve erkek/kız uygulama ikonu.
+          - Tek kurulum dosyası: Guya3D-Setup-v0.3.5.exe. Güncel oyun dahildir; internet güncelleme kontrolü oyunun açılmasını bekletmez. Sonraki güncelleme arka planda indirilir ve bir sonraki açılışta uygulanır.
+
+          İndirme: Guya3D-Setup-v0.3.5.exe dosyasını çalıştırıp Kur ve Oyna seçin. Masaüstündeki Güya 3D kısayolundan açın.
+
+          Doğrulama: gerçek Godot arayüzü ve 20 karakter yerleşimi; 4 WebSocket istemcisiyle gece saldırı/kayıt sırası, özel kayıt dağıtımı ve hareket; lobi kapasitesi; kısayol kalıcılığı; imzalı paketle çevrimdışı açılış; kurulum dosyasını çıkartma ve bütünlük kontrolü; kurulan EXE açılışı. 20 gerçek oyuncuyla internet yük testi yapılmadı.
           NOTES
-          gh release create v0.3.4 game.pck latest.json --draft --title 'Güya 3D v0.3.4' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.4 --draft=false --latest
+          gh release create v0.3.5 game.pck latest.json Guya3D-Setup-v0.3.5.exe --draft --title 'Güya 3D v0.3.5' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.5 --draft=false --latest
