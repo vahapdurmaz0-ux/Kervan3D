@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.8
+name: Publish Guya 3D v0.3.9
 on:
   push:
     branches: [main]
@@ -11,34 +11,43 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - name: Download and verify release
+      - name: Download and verify signed game
         env:
-          SOURCE: https://patents-municipality-nodes-equipped.trycloudflare.com
+          SOURCE: https://recipe-eugene-daughters-finger.trycloudflare.com
         run: |
           set -euo pipefail
-          curl --fail --location --retry 5 --max-time 180 "$SOURCE/game.pck" -o game.pck
+          curl --fail --location --retry 5 --max-time 240 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '2be093828a913a5a2d527c02ced1889a776d80564e21fd461dfa68eada02566c  game.pck' | sha256sum --check --strict
-          echo '1f3c691c6083fd0c7c8f220c9e0f29cf0771b0982a607643920adddd7ec8c2f9  latest.json' | sha256sum --check --strict
-      - name: Publish verified automatic update
+          echo '054cf5720f1d6e2ddf042a444e9ea7164777794f59fb7c5a3a0221ee65dbc296  game.pck' | sha256sum --check --strict
+          echo 'e41d434d6c2a74dc0f4077fb5f956309b1359368d987ba41f32ee4ff0c923439  latest.json' | sha256sum --check --strict
+      - name: Download and verify complete installer
+        env:
+          SOURCE: https://recipe-eugene-daughters-finger.trycloudflare.com
+        run: |
+          set -euo pipefail
+          export SOURCE
+          for n in $(seq 0 19); do printf '%02d\n' "$n"; done | xargs -P 3 -I '{}' bash -c 'curl --fail --location --retry 6 --retry-all-errors --max-time 180 "$SOURCE/setup.part{}" -o "setup.part{}"'
+          cat setup.part{00..19} > Guya3D-Setup-v0.3.9.exe
+          echo 'cdc6db61b1400d7ddc1ce321ee9a4508c207d08e20a3675318aabf50ec013a3f  Guya3D-Setup-v0.3.9.exe' | sha256sum --check --strict
+      - name: Publish verified release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Sunucuda hareket mesafesi/hızı ve doğrudan duvar geçişi denetlenir; sahte konumlar düzeltilir.
-          - Oyuncu ve işlem başına istek sınırları, kayıt süresi ve bozuk veri denetimleri güçlendirildi.
-          - Gece saldırı ve yaralanma bilgileri ilgisiz evlere gönderilmez.
-          - İnternet bağlantı yardımcısının dosya bütünlüğü çalıştırılmadan doğrulanır.
-          - Etkileşim ve tuş ayarlarında renkli simgeler/tuşlar; değiştirilen kısayollar görüntüye yansır.
-          - Ana Menü düğmesi lobi sohbetinden uzaklaştırıldı.
+          - Daha canlı, sade lobi/oda/ayar ekranları; eklenen gereksiz başlık ve düğme ikonları kaldırıldı.
+          - Lobi sohbeti ve Ana Menü düğmesi çakışmaz. Odaya girince karakter alanı sohbet için küçülür.
+          - Ayarlarda Türkçe, İngilizce, Çince (basitleştirilmiş), Almanca, Japonca, Fransızca, İspanyolca, Kırgızca, Moğolca, Kazakça ve Özbekçe seçilebilir. Seçim kaydedilir.
+          - Rol açıklamaları, temel menüler, bildirimler ve oynanış metinleri için 10 çeviri kataloğu. Oyuncu adları ve sohbet çevrilmez.
+          - Çince/Japonca için Noto CJK yazı tipleri. Çeviriler ilk sürümdür; ana dilde üslup incelemesi henüz yapılmadı.
+          - Yeni başlatıcıda dosya doğrulama ve sahne yükleme aşamaları görünür şekilde yüzde100'e ilerler; indirme yüzdesi ve MB değerleri gerçek dosya ilerlemesine bağlıdır.
+          - Eski başlatıcıyla oyun güncellemesi alanlara menüde indirme/hazır bilgisi gösterilir.
 
-          Kontroller: dört WebSocket istemcisiyle saldırgan istekler ve normal hareket, gece saldırısı, kayıt, taşıma, ses kanalları ve kapasite; yerel imzalı paket açılışı ve güncelleyici bütünlük testleri geçti.
-          Oda sahibi sunucu olmaya devam eder; bu güncelleme tam hile koruması veya bağımsız güvenlik sertifikası değildir.
-          Mevcut başlatıcı güncellemeyi arka planda indirir, sonraki açılışta uygular.
+          Açılış çubuğu düzeltmesi başlatıcıdadır: Guya3D-Setup-v0.3.9.exe ile yeni kurulumu kullanın. Oyun güncellemeleri arka planda indirilir ve sonraki açılışta uygulanır.
+          Doğrulama: 11 dilin yerel ekran/glyph testleri, şablon işaretleri, ad/sohbet koruması, dört istemcili gece/saldırı/kayıt akışı, paket bütünlüğü, gömülü başlatıcının yüzde100 ilerlemesi ve tek dosya kurulumunun çıkarma/bütünlük testi geçti.
           NOTES
-          gh release create v0.3.8 game.pck latest.json --draft --title 'Güya 3D v0.3.8' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.8 --draft=false --latest
+          gh release create v0.3.9 game.pck latest.json Guya3D-Setup-v0.3.9.exe --draft --title 'Güya 3D v0.3.9' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.9 --draft=false --latest
