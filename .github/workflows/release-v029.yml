@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.12
+name: Publish Guya 3D v0.3.13
 on:
   push:
     branches: [main]
@@ -15,22 +15,22 @@ jobs:
     steps:
       - name: Download and verify signed game
         env:
-          SOURCE: https://applying-deliver-doctor-handhelds.trycloudflare.com
+          SOURCE: https://scanned-footage-cache-lloyd.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 240 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '2438a1a29af87f9dc5261f52d27dbbca3ca61b665c4b8d31627d59a6040b6427  game.pck' | sha256sum --check --strict
-          echo 'c8ee3c177f31c096eac0dfb279ca8743fe02178104bed0a51af1c992e433c4c0  latest.json' | sha256sum --check --strict
+          echo '5100b1ac90585de2831e25d3f0b6cf4a7f48e51c29b3d7ce32127b0e41fb55de  game.pck' | sha256sum --check --strict
+          echo '06c0d8450aa6ae6e186849219692d57af19d6534216e022594e993e55f73eb2e  latest.json' | sha256sum --check --strict
       - name: Download and verify complete installer
         env:
-          SOURCE: https://applying-deliver-doctor-handhelds.trycloudflare.com
+          SOURCE: https://scanned-footage-cache-lloyd.trycloudflare.com
         run: |
           set -euo pipefail
           export SOURCE
           for n in $(seq 0 19); do printf '%02d\n' "$n"; done | xargs -P 3 -I '{}' bash -c 'curl --fail --location --retry 6 --retry-all-errors --max-time 180 "$SOURCE/setup.part{}" -o "setup.part{}"'
-          cat setup.part{00..19} > Guya3D-Setup-v0.3.12.exe
-          echo '4982cd2609d58290a8ca2bdcac942240e33fdf87d12ac2b85d5430f6073481c0  Guya3D-Setup-v0.3.12.exe' | sha256sum --check --strict
+          cat setup.part{00..19} > Guya3D-Setup-v0.3.13.exe
+          echo '108ae745dd521cc180e729feb7f76e355624398abdb6a887e6aa515e1b88001e  Guya3D-Setup-v0.3.13.exe' | sha256sum --check --strict
       - name: Publish verified release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -38,12 +38,11 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Güncelleme kontrolü ve indirme, oyun açılmadan önce gece giriş ekranında tamamlanır. Gerçek indirme ilerlemesi ve yumuşak açılış geçişleri eklenmiştir.
-          - Dil seçenekleri seçili arayüz dilinde gösterilir. İfade çarkının ve varsayılan oda adının eksik çevirileri tamamlanmıştır.
-          - B ile ifade ekranı ve Alt+1–8 kısayolları düzeltilmiştir. Oda öncesi kıyafet seçimi korunur; bu sürümde yeni kıyafet değişikliği uygulanmamıştır.
-          - Meydanda ayakkabı gömülmesi giderilmiştir. Kapılar menteşeden açılıp kapanır, kapı açıklığı mevcut iç odanın canlı görüntüsünü gösterir ve bacalarda hafif duman bulunur.
+          - İndirme yüzdesi ve MB bilgisi gece giriş ekranındaki ortadaki yükleme kutusuna doğrudan bağlandı.
+          - Barın doluluğu gerçek indirme yüzdesiyle eşleştirildi; ayrı menü bildirimi ve yinelenen yüzde satırı kaldırıldı.
+          - Güncelleme tamamlanmadan ana menü açılmaz. Doğrulama ve sahne yükleme sırasında bar geriye gitmez.
           
-          Doğrulama: gecikmeli gerçek HTTP indirmesi, dosya imzası/bütünlüğü, oyun öncesi bekleme, yüzde100 ve geçiş animasyonu, çevrimdışı açılış, eski başlatıcı uyumu, gerçek B/Alt/kadran tıklamaları, 11 dil ve 4 istemcili gece akışı test edilmiştir. Tek dosya kurulumunun çıkarma ve bütünlük kontrolü geçmiştir.
+          Doğrulama: yavaşlatılmış gerçek HTTP indirmesinde ortadaki bar, yüzde/MB bilgisi, ekran görüntüsü, indirme boyunca menünün açılmaması ve yüzde100 sonrası geçiş test edildi. Eski0.3.6 başlatıcısında yeni paket/giriş ekranı uyumu ve tek dosya kurulumunun çıkarma/bütünlüğü doğrulandı.
           NOTES
-          gh release create v0.3.12 game.pck latest.json Guya3D-Setup-v0.3.12.exe --draft --title 'Güya 3D v0.3.12' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.12 --draft=false --latest
+          gh release create v0.3.13 game.pck latest.json Guya3D-Setup-v0.3.13.exe --draft --title 'Güya 3D v0.3.13' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.13 --draft=false --latest
