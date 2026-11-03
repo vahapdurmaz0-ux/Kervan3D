@@ -1,4 +1,4 @@
-name: Publish Guya 3D v0.3.10
+name: Publish Guya 3D v0.3.11
 on:
   push:
     branches: [main]
@@ -15,22 +15,22 @@ jobs:
     steps:
       - name: Download and verify signed game
         env:
-          SOURCE: https://spectacular-spray-leisure-politicians.trycloudflare.com
+          SOURCE: https://energy-pixels-infrastructure-son.trycloudflare.com
         run: |
           set -euo pipefail
           curl --fail --location --retry 5 --max-time 240 "$SOURCE/game.pck" -o game.pck
           curl --fail --location --retry 5 --max-time 60 "$SOURCE/latest.json" -o latest.json
-          echo '2f93572ce05c436038d08220dc59c9b80d66e92c09af3700ec472c47a477803b  game.pck' | sha256sum --check --strict
-          echo '122d84ef65ff7d6d30a31c84a809fd15bb885e657a65b79d3b6f278ed6c2289e  latest.json' | sha256sum --check --strict
+          echo 'a9d7f222470966d0898017ec7fd75193ee4d06b56da09d72b27cb723f37f6598  game.pck' | sha256sum --check --strict
+          echo '8dff4e9f8702a29858e480f8fe09764960123b44706646384f5ae681e07f287a  latest.json' | sha256sum --check --strict
       - name: Download and verify complete installer
         env:
-          SOURCE: https://spectacular-spray-leisure-politicians.trycloudflare.com
+          SOURCE: https://energy-pixels-infrastructure-son.trycloudflare.com
         run: |
           set -euo pipefail
           export SOURCE
           for n in $(seq 0 19); do printf '%02d\n' "$n"; done | xargs -P 3 -I '{}' bash -c 'curl --fail --location --retry 6 --retry-all-errors --max-time 180 "$SOURCE/setup.part{}" -o "setup.part{}"'
-          cat setup.part{00..19} > Guya3D-Setup-v0.3.10.exe
-          echo '461dc56a4c4a37c456cfee2641d2c7a9f1070ac0bf80297b02c4fc343f3ed8f7  Guya3D-Setup-v0.3.10.exe' | sha256sum --check --strict
+          cat setup.part{00..19} > Guya3D-Setup-v0.3.11.exe
+          echo '7669d254e0cd9bc68e49d3bf407ec3cba38fab2c517661f603709e5059dd1a92  Guya3D-Setup-v0.3.11.exe' | sha256sum --check --strict
       - name: Publish verified release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -38,17 +38,11 @@ jobs:
         run: |
           set -euo pipefail
           cat > notes.md <<'NOTES'
-          - Moda: erkek ve kız için 15'er yeni kıyafet; özgün köylü kıyafeti de korunur.
-          - İsimli açılır listeler yerine gerçek oyun modellerinden hazırlanmış kıyafet kartları. Görsele tıklayarak giyme; ayrı şapka, ayakkabı ve maske kategorileri.
-          - Yaz şapkası, rap şapkası ve püsküllü okul şapkası; bağımsız spor ayakkabı/bot ve bandana seçenekleri.
-          - Tişört, kapüşonlu, okul, çiçekli, denizci, kolej, salopet, ekose, yağmurluk, örgü, spor, pijama, yelek, kot ve parka tasarımları. Kız modelinde mevcut elbise yapısına uyarlanır.
-          - GLB'nin özgün yüzü, saç şekli ve karakter iskeleti korunur. Giysi detayları ilgili kemiklere bağlıdır; başlıklar dolgun ve kenarlıklı hale getirildi.
-          - Menü karakter önizlemelerinde daha yüksek çözünürlük ve 4x kenar yumuşatma. Oyun dünyasının hafif görüntü ayarı korunur.
-          - Saç, ev ve izler için 20 farklı renk; belirgin siyah ve beyaz dahil.
-          - Ayarlar > Dil: 11 dil için doğrudan görünen seçim düğmeleri. Çince/Japonca/Kiril başlık yedek fontları düzeltildi.
+          - Arka plan güncelleme göstergesi oyun giriş ekranında, ana menü düğmelerinin altında gösterilir.
+          - Lobi, Roller, Moda ve oyun içinde güncelleme paneli görünmez.
+          - Gerçek indirme yüzdesi/MB bilgisi ve güncelleme hazır durumu korunur; indirme arka planda sürer ve sonraki açılışta uygulanır.
           
-          Doğrulama: iki modelde 15 kıyafet x 8 ifade görüntüsü ve kemik takibi, özgün kıyafete dönüş, gerçek fare tıklamaları/son satıra kaydırma, dört istemcili kıyafet aktarımı ve gece/saldırı/kayıt akışı, 11 dilde başlıklar, eski 0.3.9 başlatıcısında imzalı paket açılışı ve tek dosya kurulumunun çıkarma/bütünlük testi geçti.
-          Çeviriler ilk sürümdür; ana dilde üslup incelemesi tamamlanmadı. Oyun güncellemeleri arka planda indirilir ve sonraki açılışta uygulanır.
+          Doğrulama: yerel görüntü ve görünürlük testi yüzde96 indirme, hazır durumu, üç lobi sekmesi ve oyun içini kapsar. Tek dosya kurulumunun çıkarma/bütünlük testi geçti.
           NOTES
-          gh release create v0.3.10 game.pck latest.json Guya3D-Setup-v0.3.10.exe --draft --title 'Güya 3D v0.3.10' --notes-file notes.md --target "$GITHUB_SHA"
-          gh release edit v0.3.10 --draft=false --latest
+          gh release create v0.3.11 game.pck latest.json Guya3D-Setup-v0.3.11.exe --draft --title 'Güya 3D v0.3.11' --notes-file notes.md --target "$GITHUB_SHA"
+          gh release edit v0.3.11 --draft=false --latest
